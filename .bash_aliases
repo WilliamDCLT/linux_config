@@ -12,6 +12,7 @@ export PS1='\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[36;1m\]\H \[\e[34;1m\]\w\[\e[32;1m\]
 function save_config() {
     here=`pwd`
     cd ~/gitHub/linux_config
+    bak $ALIASES
     cp $ALIASES .
     git add .bash_aliases
     git commit -m "New aliases"
@@ -19,6 +20,13 @@ function save_config() {
     git pull
     git push
     cd $here
+}
+
+function col {
+    first="awk '{print "
+    last="}'"
+    cmd="${first}\$${1}${last}"
+    eval $cmd
 }
 
 function addalias {
@@ -72,10 +80,6 @@ function update_github_conf() {
 	cp /home/william/.vimrc $GITHUB_CONF;
 }
 
-function diffbench() {
-	diff /home/william/programmation/aod/AOD/benchmark/benchmark_0$1/target /home/william/programmation/aod/AOD/benchmark/benchmark_0$1/target_out
-}
-
 function mail() {
 	if [[ $# -lt 3 ]]; then
 		echo "1 : destinataire"
@@ -93,15 +97,13 @@ function slay() {
     kill -9 $tokill
 }
 
-alias geditaliases="gedit $ALIASES &"
+alias geditaliases="gedit $ALIASES"
 alias ff="firefox& 2> /dev/null"
 alias l="ls"
-alias cd..="cd .."
 alias gm="gnatmake"
 alias xx="exit"
-alias tarcomp="tar -vcf"
-alias tardecomp="tar -xvf"
-alias targzdecomp="tar -xzvf"
+alias tarcomp="tar -czvf"
+alias tardecomp="tar -xzvf"
 alias commit="git commit -am"
 alias pull="git pull"
 alias push="git push"
@@ -119,15 +121,12 @@ alias vimaliases="vim ~/.bash_aliases"
 alias vimalias="vim ~/.bash_aliases"
 alias sourcealias="source ~/.bash_aliases"
 alias sourcealiases="source ~/.bash_aliases"
-alias sshimag="ssh duclotw@pcserveur.ensimag.fr"
 alias apache_restart="sudo /etc/init.d/apache2 restart"
-alias phpconsole="php app/console"
 alias phpconsole="php app/console"
 alias asseticdump="phpconsole assetic:dump --env=prod --no-debug"
 alias chmodrec="sudo chmod -R a+rw ."
 alias getcomposer="curl -sS https://getcomposer.org/installer"
 alias cdwebprolan="cd /var/www/webprolan"
-alias untracked=""
 alias untracked="git ls-files --others --exclude-standard"
 alias fixturesload="php app/console doctrine:fixtures:load"
 alias netbeans="/usr/local/bin/netbeans.sh"
@@ -139,29 +138,16 @@ alias sudo="sudo "
 alias agud="sudo apt-get update"
 alias agug="sudo apt-get upgrade"
 alias aguu="agupd agupg"
-alias teeworld="/usr/local/bin/teeworlds-0.6.3-linux_x86_64/teeworlds"
 alias hscroll0="synclient HorizTwoFingerScroll=0"
 alias hscroll1="synclient HorizTwoFingerScroll=1"
 alias tex="texmaker"
 alias cim="vim"
-alias clion="/usr/local/bin/clion/bin/clion.sh"
-alias stremio="/opt/Stremio/Stremio.sh"
 alias apt-get="sudo apt-get"
-alias testlex="/home/william/programmation/Projet_GL/Projet/src/test/script/exhaustive-lex.sh"
-alias testsynt="/home/william/programmation/Projet_GL/Projet/src/test/script/exhaustive-synt.sh"
 alias intellij="/usr/local/bin/intellij.sh"
 alias itj="intellij"
 alias phpstorm="/usr/local/bin/phpstorm.sh"
 alias phps="phpstorm"
-alias cdtest="cd /home/william/programmation/Projet_GL/Projet/src/test/script/"
-alias cdgl="cd /home/william/programmation/Projet_GL/Projet/"
-alias mvncomp='here=`pwd`; cdgl && mvn compile; cd $here'
-alias testcontext="/home/william/programmation/Projet_GL/Projet/src/test/script/exhaustive-context.sh"
-alias poly="evince /home/william/programmation/Projet_GL/Projet/poly-projet-GL.pdf &"
-alias testgen="/home/william/programmation/Projet_GL/Projet/src/test/script/exhaustive-codegen.sh"
-alias testcli="/home/william/programmation/Projet_GL/Projet/src/test/script/exhaustive-CLI.sh"
 alias pse="ps -e"
-alias killstremio='tokill=`pgrep Stremio` && kill -9 $tokill'
 alias ftp_restart="sudo service vsftpd restart"
 alias agr="sudo apt-get remove"
 alias agar="sudo apt-get autoremove"
@@ -171,8 +157,8 @@ alias vimapache="sudo vim /etc/apache2/sites-available/000-default.conf"
 alias df="df -h"
 alias cdd="pushd"
 alias cdr="popd"
-alias ..="cd .."
 alias cd..=".."
+alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias setroot="root=/home/william"
@@ -181,3 +167,4 @@ alias mkdir="mkdir -p"
 alias find.="find . -name"
 alias findroot="find / -name"
 alias gRep="grep -R"
+alias rmr="rm -r"
