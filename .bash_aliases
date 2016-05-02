@@ -10,6 +10,7 @@ export PATH=$HOME/programmation/Projet_GL/global/bin:$PATH
 export PS1='\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[36;1m\]\H \[\e[34;1m\]\w\[\e[32;1m\] $ \[\e[0m\]'
 
 function save_config() {
+    here=`pwd`
     cd ~/gitHub/linux_config
     cp $ALIASES .
     git add .bash_aliases
@@ -17,6 +18,7 @@ function save_config() {
 
     git pull
     git push
+    cd $here
 }
 
 function addalias {
